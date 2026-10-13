@@ -1,0 +1,10 @@
+Cặp đôi: Tiến Vinh & Lan Anh
+Ngày cưới: 03/11/2026
+Thời gian: 09:00 mời khách dùng tiệc tại hai gia đình; 13:00 đón dâu, rước dâu về nhà trai.
+Địa điểm: Tư gia hai gia đình
+
+Nhà chú rể: Xóm 13, thôn Quan Lạng, xã Lý Nhân, tỉnh Ninh Bình
+Nhà cô dâu: Trường Tiểu học xã Đồng Du
+
+Ngôn ngữ: Tiếng Việt
+Công nghệ: React, TypeScript, Vite

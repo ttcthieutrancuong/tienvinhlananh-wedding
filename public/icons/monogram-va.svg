@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Chữ lồng V và A</title>
+  <desc id="desc">Biểu trưng chữ lồng V và A trong khung tròn vàng champagne</desc>
+  <defs>
+    <linearGradient id="gold" x1="25" y1="18" x2="213" y2="221" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8E7B0" />
+      <stop offset=".42" stop-color="#D9B85D" />
+      <stop offset=".72" stop-color="#B88A3D" />
+      <stop offset="1" stop-color="#F1D98E" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 118 -118 0 120 120)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9E9" stop-opacity=".62" />
+      <stop offset="1" stop-color="#FFF9E9" stop-opacity="0" />
+    </radialGradient>
+    <filter id="soft-shadow" x="40" y="48" width="160" height="151" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" />
+      <feOffset dy="2" />
+      <feComponentTransfer><feFuncA slope=".18" type="linear" /></feComponentTransfer>
+      <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+  </defs>
+
+  <circle cx="120" cy="120" r="116" fill="url(#glow)" />
+  <circle cx="120" cy="120" r="109.5" stroke="url(#gold)" stroke-width="1.5" />
+  <circle cx="120" cy="120" r="102" stroke="url(#gold)" stroke-opacity=".48" stroke-width=".7" />
+
+  <!-- Delicate floral ornaments at the four compass points -->
+  <g fill="url(#gold)">
+    <path d="M120 9.5c2.3 4.1 2.3 7.5 0 10.2-2.3-2.7-2.3-6.1 0-10.2Zm0 210.8c2.3-4.1 2.3-7.5 0-10.2-2.3 2.7-2.3 6.1 0 10.2ZM9.5 120c4.1-2.3 7.5-2.3 10.2 0-2.7 2.3-6.1 2.3-10.2 0Zm210.8 0c-4.1-2.3-7.5-2.3-10.2 0 2.7 2.3 6.1 2.3 10.2 0Z" />
+    <circle cx="120" cy="22" r="1.8" /><circle cx="120" cy="218" r="1.8" />
+    <circle cx="22" cy="120" r="1.8" /><circle cx="218" cy="120" r="1.8" />
+  </g>
+
+  <!-- Elegant paired initials -->
+  <g filter="url(#soft-shadow)" fill="url(#gold)" stroke="#FFF5D8" stroke-opacity=".55" stroke-width=".55" paint-order="stroke fill">
+    <text x="47" y="153" font-family="Baskerville, 'Times New Roman', Georgia, serif" font-size="111" font-weight="400" letter-spacing="-10">V</text>
+    <text x="112" y="153" font-family="Baskerville, 'Times New Roman', Georgia, serif" font-size="111" font-weight="400">A</text>
+  </g>
+
+  <!-- Fine flourish ties the letters together without obscuring them -->
+  <path d="M77 171c15 10 29 12 43 4 8-5 16-13 25-23 8-9 15-13 22-11 5 2 7 7 4 11-3 4-9 3-10-1" stroke="url(#gold)" stroke-width="2.1" stroke-linecap="round" />
+  <path d="M105 185h30" stroke="url(#gold)" stroke-opacity=".72" stroke-width="1" stroke-linecap="round" />
+  <path d="m120 178 2 3.2 3.7.8-2.6 2.7.4 3.7-3.5-1.6-3.5 1.6.4-3.7-2.6-2.7 3.7-.8 2-3.2Z" fill="url(#gold)" />
+</svg>
