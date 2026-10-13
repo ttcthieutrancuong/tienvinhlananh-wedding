@@ -1,0 +1,1410 @@
+/* Reset default styles and prepare for custom design */
+:root {
+  --font-body: "Be Vietnam Pro", Arial, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+}
+
+/* Custom Font - Stay Glory Serif */
+@font-face {
+  font-family: "Stay Glory Serif";
+  src: url("/font/Stay Glory Serif.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Custom Font - Fabregas for Ampersand */
+@font-face {
+  font-family: "Fabregas";
+  src: url("/font/Fabregas.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: #493b3b;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html,
+body {
+  min-height: 100%;
+  background-color: #FBE8ED;
+}
+
+/* Keep Vietnamese body copy readable and headings consistent across sections. */
+#root :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-display) !important;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+}
+
+#root :is(.font-chinese-title, .font-chinese-elegant, .font-chinese-modern, .font-chinese-decorative),
+#root [class*="Noto_Serif"],
+#root [class*="Noto_Sans"],
+#root [class*="Playfair_Display"],
+#root [style*="Noto Serif"] {
+  font-family: var(--font-display) !important;
+}
+
+#root .stay-glory-text {
+  font-family: var(--font-display) !important;
+}
+
+#root .font-display {
+  font-family: var(--font-display) !important;
+}
+
+#root .font-script {
+  font-family: "Fabregas", var(--font-display) !important;
+}
+
+/* Unframed livestream comments float along the right side of the wishes section. */
+@keyframes wish-live-scroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+@keyframes wish-live-pulse {
+  0%, 100% { opacity: 1; }
+  55% { opacity: .42; }
+}
+
+.wish-live-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #C45B69;
+  animation: wish-live-pulse 1.8s ease-out infinite;
+}
+
+.wish-live-stage {
+  position: relative;
+  min-height: 390px;
+  overflow: hidden;
+  isolation: isolate;
+  background: radial-gradient(ellipse at 77% 48%, rgba(255,255,255,.72), rgba(255,248,247,.15) 60%, transparent 78%);
+}
+
+.wish-live-status {
+  position: absolute;
+  z-index: 2;
+  top: .75rem;
+  right: .25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  color: #9E5962;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+
+.wish-live-window {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(100%, 34rem);
+  height: 350px;
+  overflow: hidden;
+  padding: 1.5rem .25rem .25rem 1.25rem;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 9%, #000 89%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 9%, #000 89%, transparent 100%);
+}
+
+@keyframes wish-background-float-pop {
+  0% { opacity: 0; transform: translateY(24px) rotate(-6deg) scale(.7); }
+  12% { opacity: var(--wish-opacity, .2); }
+  58% { opacity: var(--wish-opacity, .2); transform: translateY(-190px) rotate(4deg) scale(1); }
+  72% { opacity: var(--wish-opacity, .2); transform: translateY(-245px) rotate(8deg) scale(1.04); }
+  80%, 100% { opacity: 0; transform: translateY(-250px) rotate(14deg) scale(1.55); }
+}
+
+@keyframes wish-background-pop-spark {
+  0%, 64% { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(0); }
+  70% { opacity: .7; transform: translate(-50%, -50%) scale(1) rotate(30deg); }
+  82%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5) rotate(65deg); }
+}
+
+.wish-backdrop-balloon-field { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
+.wish-backdrop-balloon {
+  position: absolute;
+  bottom: -.2rem;
+  width: var(--wish-size, 1.25rem);
+  height: calc(var(--wish-size, 1.25rem) * 1.22);
+  border: 1px solid rgba(255,255,255,.75);
+  border-radius: 50% 50% 46% 46%;
+  opacity: 0;
+  box-shadow: inset -3px -3px 7px rgba(86,38,49,.1), inset 3px 3px 6px rgba(255,255,255,.5);
+  animation: wish-background-float-pop var(--wish-duration, 13s) ease-in infinite;
+}
+.wish-backdrop-balloon::after {
+  position: absolute;
+  bottom: -.18rem;
+  left: 2.05rem;
+  width: calc(var(--wish-size, 1.25rem) * .18);
+  height: calc(var(--wish-size, 1.25rem) * .18);
+  background: inherit;
+  content: "";
+  transform: translateX(-50%) rotate(45deg);
+}
+.wish-backdrop-string {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  height: calc(var(--wish-size, 1.25rem) * .8);
+  border-left: 1px solid rgba(145,112,100,.18);
+  transform: rotate(6deg);
+}
+.wish-backdrop-pop {
+  position: absolute;
+  z-index: 1;
+  top: 25%;
+  left: 50%;
+  color: rgba(190,146,93,.55);
+  font-size: .8rem;
+  opacity: 0;
+  animation: wish-background-pop-spark var(--wish-duration, 13s) ease-out infinite;
+}
+.wish-backdrop-balloon-1 { left: 5%; --wish-size: 1.1rem; --wish-duration: 12s; --wish-opacity: .18; background: linear-gradient(145deg,#F8E6BD,#D6B66F); animation-delay: -8s; }
+.wish-backdrop-balloon-2 { left: 14%; --wish-size: 1.5rem; --wish-duration: 15s; --wish-opacity: .23; background: linear-gradient(145deg,#F5DDE2,#D28A97); animation-delay: -3s; }
+.wish-backdrop-balloon-3 { left: 24%; --wish-size: .85rem; --wish-duration: 13s; --wish-opacity: .16; background: linear-gradient(145deg,#EEE5EF,#B19BB5); animation-delay: -10s; }
+.wish-backdrop-balloon-4 { left: 34%; --wish-size: 1.25rem; --wish-duration: 16s; --wish-opacity: .18; background: linear-gradient(145deg,#F8E6BD,#D6B66F); animation-delay: -6s; }
+.wish-backdrop-balloon-5 { left: 45%; --wish-size: 1.6rem; --wish-duration: 14s; --wish-opacity: .17; background: linear-gradient(145deg,#F5DDE2,#D28A97); animation-delay: -12s; }
+.wish-backdrop-balloon-6 { left: 56%; --wish-size: 1rem; --wish-duration: 12.5s; --wish-opacity: .2; background: linear-gradient(145deg,#EEE5EF,#B19BB5); animation-delay: -4s; }
+.wish-backdrop-balloon-7 { left: 66%; --wish-size: 1.3rem; --wish-duration: 15.5s; --wish-opacity: .19; background: linear-gradient(145deg,#F8E6BD,#D6B66F); animation-delay: -9s; }
+.wish-backdrop-balloon-8 { left: 77%; --wish-size: 1.55rem; --wish-duration: 13.5s; --wish-opacity: .21; background: linear-gradient(145deg,#F5DDE2,#D28A97); animation-delay: -5s; }
+.wish-backdrop-balloon-9 { left: 88%; --wish-size: 1rem; --wish-duration: 16.5s; --wish-opacity: .17; background: linear-gradient(145deg,#EEE5EF,#B19BB5); animation-delay: -13s; }
+.wish-backdrop-balloon-10 { left: 9%; --wish-size: .75rem; --wish-duration: 14.5s; --wish-opacity: .15; background: linear-gradient(145deg,#F5DDE2,#D28A97); animation-delay: -11s; }
+.wish-backdrop-balloon-11 { left: 72%; --wish-size: .9rem; --wish-duration: 12.8s; --wish-opacity: .16; background: linear-gradient(145deg,#EEE5EF,#B19BB5); animation-delay: -7s; }
+.wish-backdrop-balloon-12 { left: 51%; --wish-size: 1.2rem; --wish-duration: 17s; --wish-opacity: .18; background: linear-gradient(145deg,#F8E6BD,#D6B66F); animation-delay: -15s; }
+
+.wish-live-track {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+  animation: wish-live-scroll 38s linear infinite;
+}
+
+.wish-live-window:hover .wish-live-track,
+.wish-live-window:focus-within .wish-live-track { animation-play-state: paused; }
+
+.wish-live-row {
+  display: flex;
+  width: min(100%, 29rem);
+  margin-left: auto;
+  align-items: flex-start;
+  gap: .55rem;
+  min-width: 0;
+  padding: .25rem .25rem .3rem;
+  animation: wish-comment-arrive .5s both;
+}
+
+.wish-live-row-1 { animation-delay: .14s; }
+.wish-live-row-2 { animation-delay: .28s; }
+
+@keyframes wish-comment-arrive {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wish-live-avatar {
+  display: flex;
+  width: 2.15rem;
+  height: 2.15rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: #FBF2DF;
+  color: #A67C52;
+  font-family: var(--font-display);
+  font-size: .85rem;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.wish-live-avatar-rose { background: #F8E8EA; color: #9E6671; }
+.wish-live-avatar-lilac { background: #F5EEF6; color: #88718D; }
+
+.wish-live-author {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  margin: 0 0 .08rem;
+  color: #92505A;
+  font-size: .75rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.wish-live-author svg { width: .58rem; height: .58rem; color: #C7838D; }
+.wish-live-author span { color: #A1847D; font-weight: 400; }
+
+.wish-live-message { margin: 0; color: #624F4A; font-size: .82rem; line-height: 1.5; text-wrap: pretty; }
+
+.wish-live-row-1 .wish-live-avatar { background: #F8E8EA; color: #9E6671; }
+.wish-live-row-2 .wish-live-avatar { background: #F5EEF6; color: #88718D; }
+
+.hero-date-ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  margin-top: .85rem;
+  color: #f8e8ca;
+  font: 600 .61rem/1.3 var(--font-body);
+  letter-spacing: .11em;
+}
+.hero-date-ribbon > span:not(.hero-date-ribbon__divider) {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  min-height: 1.8rem;
+  padding: .35rem .62rem;
+  border: 1px solid rgba(232, 199, 131, .3);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+}
+.hero-date-ribbon i { color: #e8c783; font-size: .62rem; font-style: normal; }
+.hero-date-ribbon__divider { color: #e8c783; font-size: .75rem; }
+
+@media (min-width: 640px) {
+  .wish-live-stage { min-height: 430px; }
+  .wish-live-window { height: 385px; padding-left: 2rem; }
+  .wish-live-row { gap: .8rem; }
+  .wish-live-avatar { width: 2.25rem; height: 2.25rem; }
+  .wish-live-message { font-size: .9rem; }
+}
+
+@media (max-width: 480px) {
+  .wish-live-stage { min-height: 370px; margin-inline: -.35rem; }
+  .wish-live-status { right: .65rem; top: .55rem; font-size: .58rem; }
+  .wish-live-window { width: 100%; height: 335px; padding: 1.5rem .3rem .25rem; }
+  .wish-live-track { gap: .75rem; }
+  .wish-live-row { gap: .55rem; padding-inline: .25rem; }
+  .wish-live-avatar { width: 1.9rem; height: 1.9rem; }
+  .wish-live-author { font-size: .7rem; }
+  .wish-live-message { font-size: .77rem; line-height: 1.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wish-live-track, .wish-live-dot { animation: none; will-change: auto; }
+  .wish-backdrop-balloon, .wish-backdrop-pop { animation: none; opacity: .1; }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #8A3D55;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffc071;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffb444;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Enhanced gradient utilities */
+.bg-radial-gradient {
+  background: radial-gradient(circle, transparent 0%, rgba(0, 0, 0, 0.3) 70%);
+}
+
+/* Luxury gradient utilities */
+.bg-gradient-radial {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(0, 0, 0, 0.2) 70%
+  );
+}
+
+/* Custom animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Luxury glass morphism effect */
+.glass-morphism {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(234, 228, 204, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Parallax layers */
+.parallax-layer {
+  will-change: transform;
+}
+
+/* Luxury Typography Shadows */
+.luxury-text-shadow {
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.9), 0 2px 0 rgba(0, 0, 0, 0.8),
+    0 3px 0 rgba(0, 0, 0, 0.7), 0 4px 0 rgba(0, 0, 0, 0.6),
+    0 5px 0 rgba(0, 0, 0, 0.5), 0 6px 1px rgba(0, 0, 0, 0.4),
+    0 0 5px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Gold text glow effect */
+.gold-glow {
+  text-shadow: 0 0 5px rgba(212, 175, 55, 0.8), 0 0 10px rgba(212, 175, 55, 0.6),
+    0 0 15px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Chinese Lantern Animations */
+@keyframes lantern-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(220, 20, 60, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.9), 0 0 30px rgba(255, 69, 0, 0.5);
+  }
+}
+
+@keyframes lantern-sway {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes tassel-swing {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+.lantern-glow {
+  animation: lantern-glow 3s ease-in-out infinite;
+}
+
+.lantern-sway {
+  animation: lantern-sway 4s ease-in-out infinite;
+}
+
+.tassel-swing {
+  animation: tassel-swing 2s ease-in-out infinite;
+}
+
+/* Utility classes for 3D effects */
+.transform-gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.border-3 {
+  border-width: 3px;
+}
+
+/* Chinese Typography Classes */
+.font-chinese-title {
+  font-family: "Ma Shan Zheng", "ZCOOL KuaiLe", "Noto Serif SC", serif;
+  font-weight: 900;
+}
+
+.font-chinese-elegant {
+  font-family: "Noto Serif SC", "Microsoft YaHei", serif;
+  font-weight: 500;
+}
+
+.font-chinese-modern {
+  font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  font-weight: 400;
+}
+
+.font-chinese-decorative {
+  font-family: "ZCOOL KuaiLe", "Ma Shan Zheng", fantasy;
+  font-weight: 400;
+}
+
+/* Chinese text effects */
+.text-chinese-shadow {
+  text-shadow: 2px 2px 4px rgba(140, 3, 45, 0.3);
+}
+
+.text-chinese-glow {
+  text-shadow: 0 0 10px rgba(255, 192, 113, 0.8),
+    0 0 20px rgba(255, 192, 113, 0.6);
+}
+
+/* Enhanced animations for hero section */
+@keyframes cardHover {
+  0% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(255, 192, 113, 0.3);
+  }
+}
+
+@keyframes iconGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px rgba(255, 192, 113, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(255, 192, 113, 0.8));
+  }
+}
+
+@keyframes textShine {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(255, 192, 113, 0.5),
+      0 0 10px rgba(255, 192, 113, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 192, 113, 0.8),
+      0 0 30px rgba(255, 192, 113, 0.6);
+  }
+}
+
+.card-hover {
+  animation: cardHover 0.3s ease-out forwards;
+}
+
+.icon-glow {
+  animation: iconGlow 2s ease-in-out infinite;
+}
+
+.text-shine {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 192, 113, 0.8),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: textShine 3s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Footer specific animations */
+@keyframes footerPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes footerGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(255, 192, 113, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 192, 113, 0.6);
+  }
+}
+
+/* Footer link hover effects */
+.footer-link {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 192, 113, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.footer-link:hover::before {
+  left: 100%;
+}
+
+.footer-link:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 2px 8px rgba(255, 192, 113, 0.5);
+}
+
+/* Modern Footer Enhancements */
+.footer-card-glow {
+  box-shadow: 0 0 30px rgba(255, 192, 113, 0.1), 0 10px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.footer-card-glow:hover {
+  box-shadow: 0 0 50px rgba(255, 192, 113, 0.3), 0 20px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px) scale(1.02);
+}
+
+.footer-tech-badge {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.footer-tech-badge:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 192, 113, 0.2),
+    rgba(255, 192, 113, 0.1)
+  );
+  border-color: rgba(255, 192, 113, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Animated gradient text */
+.gradient-text {
+  background: linear-gradient(45deg, #ffc071, #ffd700, #ffc071);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Floating animation for footer elements */
+.footer-float {
+  animation: footerFloat 6s ease-in-out infinite;
+}
+
+@keyframes footerFloat {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
+
+/* Pulse animation for tech badges */
+.tech-pulse {
+  animation: techPulse 2s ease-in-out infinite;
+}
+
+@keyframes techPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* Romantic floating animations */
+@keyframes romantic-float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+    opacity: 0.15;
+  }
+}
+
+@keyframes gentle-sway {
+  0%,
+  100% {
+    transform: translateX(0px) scale(1);
+  }
+  50% {
+    transform: translateX(5px) scale(1.05);
+  }
+}
+
+/* Stay Glory Serif typography enhancements */
+.stay-glory-text {
+  font-family: "Stay Glory Serif", "Libre Baskerville", serif;
+  font-feature-settings: "liga" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+}
+
+.romantic-glow {
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 8px 24px rgba(0, 0, 0, 0.9),
+    0 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+/* Liquid Glass Effect for Header */
+.liquid-glass {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 247, 0.76) 0%,
+    rgba(250, 233, 236, 0.68) 50%,
+    rgba(255, 250, 247, 0.76) 100%
+  );
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.liquid-animated {
+  transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease, opacity .3s ease;
+}
+
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.1) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.liquid-glass:hover::before {
+  opacity: 1;
+}
+
+/* Keep the fixed header stable on mobile browsers while scrolling. */
+@media (max-width: 640px) {
+  #root header.liquid-glass {
+    background: rgba(249, 232, 237, 0.76);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: 0 4px 14px rgba(66, 32, 44, 0.12);
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  #root header.liquid-glass::before {
+    display: none;
+  }
+}
+
+/* Header responsive text optimization */
+.header-text-nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.header-text-responsive {
+  max-width: calc(100vw - 200px); /* Leave space for controls */
+}
+
+@media (max-width: 640px) {
+  .header-text-responsive {
+    max-width: calc(100vw - 120px); /* Smaller space on mobile */
+  }
+
+  .header-text-nowrap {
+    font-size: 0.875rem; /* 14px */
+    letter-spacing: 0.025em;
+  }
+
+  .header-subtext-mobile {
+    font-size: 0.75rem; /* 12px */
+  }
+}
+
+/* Header logo hover effects */
+.header-logo:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.header-logo:hover .logo-border {
+  border-color: rgba(212, 175, 55, 1);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.header-logo:active {
+  transform: scale(0.98);
+}
+
+/* Compact countdown cards with no always-running animations. */
+.countdown-card {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.countdown-card:hover {
+  border-color: rgba(200, 168, 130, 0.45);
+}
+
+.countdown-number {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 640px) {
+  .countdown-card {
+    min-height: 80px;
+    padding: 0.75rem !important;
+  }
+
+  .countdown-number {
+    font-size: 1.25rem !important;
+    line-height: 1.2;
+  }
+
+  .countdown-card div:last-child {
+    font-size: 0.75rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .countdown-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-floral-ornament {
+    animation: none !important;
+  }
+
+  .countdown-card { transition: none; }
+}
+
+.countdown-card:focus-within {
+  outline: 2px solid #c8a882;
+  outline-offset: 2px;
+}
+
+/* Character Animation Keyframes for Timeline Story */
+@keyframes walk-right {
+  0%,
+  100% {
+    transform: translateX(0) scaleX(1);
+  }
+  50% {
+    transform: translateX(5px) scaleX(1.1);
+  }
+}
+
+@keyframes walk-left {
+  0%,
+  100% {
+    transform: translateX(0) scaleX(-1);
+  }
+  50% {
+    transform: translateX(-5px) scaleX(-1.1);
+  }
+}
+
+@keyframes heart-beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes propose {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(-5deg);
+  }
+}
+
+@keyframes surprised {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(2deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(-2deg);
+  }
+}
+
+@keyframes shine {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.3) rotate(180deg);
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes dance {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-5px) rotate(5deg);
+  }
+  75% {
+    transform: translateY(-3px) rotate(-5deg);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes float-around {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(10px) translateY(-5px) rotate(90deg);
+  }
+  50% {
+    transform: translateX(0) translateY(-10px) rotate(180deg);
+  }
+  75% {
+    transform: translateX(-10px) translateY(-5px) rotate(270deg);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(360deg);
+  }
+}
+
+@keyframes steam {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-5px) scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes cinematic-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-10px) rotate(180deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+    opacity: 0.2;
+  }
+}
+
+/* Scene container animations */
+.story-scene {
+  animation: scene-entrance 1s ease-out;
+}
+
+@keyframes scene-entrance {
+  0% {
+    transform: scale(0.3) rotate(45deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Timeline card cinematic entrance */
+.timeline-card {
+  animation: card-entrance 0.8s ease-out;
+}
+
+/* A restrained champagne-and-rose finish for the existing welcome layout. */
+.welcome-screen {
+  isolation: isolate;
+  min-height: 100svh;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(255,255,255,.78), transparent 34rem),
+    radial-gradient(ellipse at 0% 100%, rgba(210,166,147,.14), transparent 30rem),
+    linear-gradient(145deg, #FFF9F6 0%, #F7E9E9 54%, #F0DFE1 100%);
+}
+
+.welcome-screen::before {
+  position: absolute;
+  z-index: 1;
+  inset: clamp(.65rem, 2.5vw, 1.5rem);
+  border: 1px solid rgba(166, 132, 91, .2);
+  border-radius: 1rem;
+  content: "";
+  pointer-events: none;
+}
+
+.welcome-screen__content { width: min(100%, 50rem); padding-inline: 1rem; }
+.welcome-screen__intro { margin-bottom: clamp(2rem, 5vh, 3.5rem) !important; }
+.welcome-screen__monogram { filter: drop-shadow(0 3px 9px rgba(166, 132, 91, .2)); }
+.welcome-screen__title { color: #75554A; letter-spacing: .2em; }
+.welcome-screen__invitation-line {
+  color: #876d5d;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-style: italic;
+  letter-spacing: .04em;
+}
+.welcome-screen__envelope { perspective: 900px; }
+.welcome-screen__shape-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.welcome-screen__envelope-body {
+  border-color: rgba(173, 139, 93, .75) !important;
+  background: linear-gradient(145deg, #FBF2E9 0%, #F0DFD9 55%, #E9D4D2 100%) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.72), 0 12px 28px rgba(107,67,67,.08) !important;
+}
+.welcome-screen__envelope-body > .absolute.inset-4 { border-color: rgba(142, 110, 75, .42); }
+.welcome-screen__envelope-body > .absolute.inset-6 { border-color: rgba(185, 148, 91, .34); }
+.welcome-screen__envelope-monogram {
+  display: flex;
+  width: 7.25rem;
+  height: 7.25rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(157, 119, 68, .45);
+  border-radius: 50%;
+  color: #96744b;
+  background: rgba(255, 250, 244, .24);
+  box-shadow: inset 0 0 0 5px rgba(255, 252, 247, .2);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  letter-spacing: .06em;
+  line-height: 1;
+  opacity: .72;
+}
+.welcome-screen__envelope-monogram i { color: #b9944f; font-size: 1.3rem; font-style: normal; }
+.welcome-screen__envelope-names {
+  margin-top: .48rem;
+  font-family: var(--font-body, Arial, sans-serif);
+  font-size: .47rem;
+  letter-spacing: .12em;
+  white-space: nowrap;
+}
+.welcome-screen__envelope-date {
+  color: #82694f;
+  font-size: .86rem;
+  letter-spacing: .22em;
+  opacity: .82;
+}
+.welcome-screen__flap {
+  left: 1px;
+  width: calc(100% - 2px);
+  overflow: hidden;
+  border-radius: 1rem 1rem 0 0;
+  border-bottom: 1px solid rgba(166, 132, 91, .28);
+  box-shadow: 0 5px 12px rgba(90, 58, 57, .08);
+}
+.welcome-screen__invitation-card {
+  border: 1px solid rgba(176, 143, 94, .45);
+  background: linear-gradient(145deg, #FFFEFA, #FBF5F0 70%, #F7E8E8) !important;
+  box-shadow: 0 14px 30px rgba(95, 57, 60, .14);
+}
+.welcome-screen__hint { color: #856B5D; letter-spacing: .09em; }
+
+@media (max-width: 480px) {
+  .welcome-screen__content { padding-inline: 1.3rem; }
+  .welcome-screen__intro { margin-bottom: 2rem !important; }
+  .welcome-screen__monogram { margin-bottom: 1rem; }
+  .welcome-screen__hint { margin-top: 2rem; font-size: .9rem; }
+  .welcome-screen__envelope-monogram { width: 6.4rem; height: 6.4rem; font-size: 1.8rem; }
+  .welcome-screen__envelope-names { font-size: .42rem; }
+}
+
+/* A keepsake-like schedule with a fine gold path and alternating story cards. */
+.wedding-timeline {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3.75rem, 8vw, 7rem) 1.15rem;
+  color: #5e3d42;
+  background:
+    radial-gradient(ellipse at 8% 12%, rgba(226, 184, 143, .2), transparent 25rem),
+    radial-gradient(ellipse at 92% 86%, rgba(219, 159, 177, .2), transparent 27rem),
+    linear-gradient(145deg, #fffaf7 0%, #faedf0 52%, #fff8f3 100%);
+}
+
+.wedding-timeline::before,
+.wedding-timeline::after {
+  position: absolute;
+  width: min(25vw, 17rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(180, 137, 84, .12);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.wedding-timeline::before { top: -11rem; left: -9rem; }
+.wedding-timeline::after { right: -11rem; bottom: -13rem; }
+
+.wedding-timeline__inner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 62rem);
+  margin-inline: auto;
+}
+
+.wedding-timeline__header { max-width: 38rem; margin: 0 auto 3.1rem; text-align: center; }
+.wedding-timeline__eyebrow {
+  display: inline-block;
+  color: #a27647;
+  font: 600 .68rem/1.4 var(--font-body);
+  letter-spacing: .23em;
+}
+.wedding-timeline__header h2 {
+  margin: .5rem 0 .45rem;
+  color: #6d4148;
+  font-size: clamp(2.15rem, 5vw, 3.4rem);
+  line-height: 1.05;
+}
+.wedding-timeline__header p {
+  margin: 0 auto;
+  max-width: 30rem;
+  color: #82676a;
+  font: italic 1.07rem/1.65 var(--font-display);
+}
+.wedding-timeline__divider { display: flex; width: 8.5rem; align-items: center; gap: .65rem; margin: 1.2rem auto 0; color: #bd9756; }
+.wedding-timeline__divider i { height: 1px; flex: 1; background: linear-gradient(90deg, transparent, #c9a45d); }
+.wedding-timeline__divider i:last-child { transform: scaleX(-1); }
+.wedding-timeline__divider b { font-size: 1.1rem; font-weight: 400; }
+.wedding-timeline__days { display: grid; gap: clamp(2.8rem, 7vw, 5rem); }
+.wedding-timeline__day { position: relative; }
+.wedding-timeline__day.is-engagement-day { --timeline-accent: #b86f80; --timeline-accent-soft: rgba(184, 111, 128, .22); }
+.wedding-timeline__day.is-wedding-day { --timeline-accent: #a67b45; --timeline-accent-soft: rgba(166, 123, 69, .22); }
+.wedding-timeline__day + .wedding-timeline__day::before {
+  position: absolute;
+  top: calc(clamp(1.4rem, 3vw, 2.2rem) * -1);
+  left: 50%;
+  width: min(12rem, 40%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(194, 160, 101, .55), transparent);
+  content: "";
+  transform: translateX(-50%);
+}
+.wedding-timeline__day-header { max-width: 38rem; margin: 0 auto 1.8rem; text-align: center; }
+.wedding-timeline__day-kicker { display: flex; align-items: center; justify-content: center; gap: .55rem; }
+.wedding-timeline__day-number {
+  display: inline-grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  border: 1px solid var(--timeline-accent-soft);
+  border-radius: 50%;
+  color: var(--timeline-accent);
+  background: rgba(255, 255, 255, .74);
+  font: 600 .63rem/1 var(--font-body);
+}
+.wedding-timeline__day-date {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.8rem;
+  padding: .3rem .8rem;
+  border: 1px solid var(--timeline-accent-soft);
+  border-radius: 999px;
+  color: var(--timeline-accent);
+  background: rgba(255, 252, 248, .72);
+  font: 600 .64rem/1.2 var(--font-body);
+  letter-spacing: .14em;
+}
+.wedding-timeline__day-header h3 { margin: .6rem 0 .25rem; color: #70464d; font: 500 clamp(1.8rem, 4vw, 2.45rem)/1.1 var(--font-display); }
+.wedding-timeline__day-header p { margin: 0 auto; max-width: 31rem; color: #82676a; font: italic .98rem/1.6 var(--font-display); }
+
+.wedding-timeline__list {
+  position: relative;
+  display: grid;
+  gap: 1.35rem;
+  max-width: 48rem;
+  margin: 0;
+  margin-inline: auto;
+  padding: .5rem 0;
+  list-style: none;
+}
+.wedding-timeline__list::before {
+  position: absolute;
+  top: 1.3rem;
+  bottom: 1.3rem;
+  left: 50%;
+  width: 2px;
+  background: repeating-linear-gradient(to bottom, color-mix(in srgb, var(--timeline-accent) 70%, transparent) 0 4px, transparent 4px 10px);
+  content: "";
+  transform: translateX(-50%);
+}
+.wedding-timeline__item { position: relative; display: grid; grid-template-columns: 4.1rem minmax(0, 1fr); align-items: center; }
+.wedding-timeline__item .wedding-timeline__card { grid-column: 2; grid-row: 1; justify-self: stretch; }
+.wedding-timeline__item::before {
+  position: absolute;
+  top: 50%;
+  left: 3.48rem;
+  width: .46rem;
+  height: 1px;
+  background: #c6a365;
+  content: "";
+  transform: translateY(-50%);
+}
+.wedding-timeline__item::after {
+  position: absolute;
+  top: 50%;
+  left: 3.88rem;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 5px solid #c6a365;
+  content: "";
+  transform: translateY(-50%);
+}
+.wedding-timeline__marker {
+  z-index: 1;
+  display: grid;
+  width: 2.8rem;
+  aspect-ratio: 1;
+  place-items: center;
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+  border: 1px solid color-mix(in srgb, var(--timeline-accent) 75%, transparent);
+  border-radius: 50%;
+  color: var(--timeline-accent);
+  background: #fffaf5;
+  box-shadow: 0 0 0 .4rem rgba(255, 250, 247, .78), 0 4px 14px rgba(101, 65, 69, .1);
+  font: 600 .72rem/1 var(--font-body);
+  letter-spacing: .04em;
+}
+.wedding-timeline__marker.is-featured { color: #fffaf5; border-color: #a77944; background: linear-gradient(145deg, #c5a05e, #957044); }
+.wedding-timeline__card {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  width: 100%;
+  min-height: 7.5rem;
+  padding: 1rem 1.25rem 1.1rem;
+  border: 1px solid rgba(203, 177, 154, .62);
+  border-radius: 1.2rem;
+  background: linear-gradient(135deg, rgba(255,255,255,.97), rgba(255,250,247,.95));
+  box-shadow: 0 9px 25px rgba(105, 64, 71, .075);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.wedding-timeline__card::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, var(--timeline-accent) 25%, var(--timeline-accent) 75%, transparent);
+  content: "";
+  opacity: .72;
+}
+.wedding-timeline__card:hover { transform: translateY(-2px); border-color: #c8a96e; box-shadow: 0 14px 28px rgba(105, 64, 71, .11); }
+.wedding-timeline__card-top { position: relative; display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: .12rem; }
+.wedding-timeline__time { color: #997448; font: 600 2.2rem/.95 var(--font-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wedding-timeline__icon { display: grid; width: 2.5rem; aspect-ratio: 1; place-items: center; border: 1px solid rgba(194, 160, 101, .4); border-radius: 50%; color: #a6814e; background: rgba(255, 249, 240, .85); }
+.wedding-timeline__icon svg { width: 1rem; height: 1rem; stroke-width: 1.5; }
+.wedding-timeline__card h4 { position: relative; margin: .45rem 0 0; color: #67434a; font-size: 1.55rem; line-height: 1.15; }
+.wedding-timeline__card-rule { display: block; width: 2.4rem; height: 1px; margin-top: .62rem; background: #c8a667; }
+.wedding-timeline__card p { max-width: 23rem; margin: .52rem 0 0; color: #80696a; font-size: .84rem; line-height: 1.65; }
+.wedding-timeline__card.is-featured { border-color: rgba(177, 139, 78, .72); background: linear-gradient(135deg, #fff8f1, #f9e5e9 85%); box-shadow: 0 12px 28px rgba(151, 93, 92, .13); }
+.wedding-timeline__card.is-featured .wedding-timeline__time { color: #885d3d; }
+.wedding-timeline__card.is-featured .wedding-timeline__icon { color: #9a6f46; background: rgba(255, 255, 255, .7); }
+.wedding-timeline__day.is-engagement-day .wedding-timeline__card-rule { background: #c78391; }
+.wedding-timeline__day.is-engagement-day .wedding-timeline__item::before { background: #c78391; }
+.wedding-timeline__day.is-engagement-day .wedding-timeline__item::after { border-left-color: #c78391; }
+.wedding-timeline__day.is-engagement-day .wedding-timeline__marker { border-color: rgba(184, 111, 128, .72); color: #a65f70; }
+.wedding-timeline__day.is-engagement-day .wedding-timeline__icon { border-color: rgba(184, 111, 128, .32); color: #a65f70; background: #fff7f7; }
+.wedding-timeline__day.is-wedding-day .wedding-timeline__card-rule { background: #c8a667; }
+.wedding-timeline__ornament { position: absolute; color: rgba(182, 145, 86, .25); font-size: 1.4rem; }
+.wedding-timeline__ornament--top { top: 13%; right: 8%; }
+.wedding-timeline__ornament--bottom { bottom: 11%; left: 7%; }
+
+@media (max-width: 640px) {
+  .wedding-timeline { padding: 3.5rem 1rem 4rem; }
+  .wedding-timeline__header { margin-bottom: 2.5rem; }
+  .wedding-timeline__header h2 { font-size: 2.45rem; }
+  .wedding-timeline__header p { max-width: 21rem; font-size: 1rem; }
+  .wedding-timeline__days { gap: 3.3rem; }
+  .wedding-timeline__day-header { margin-bottom: 1.25rem; }
+  .wedding-timeline__day-kicker { gap: .4rem; }
+  .wedding-timeline__day-date { padding-inline: .65rem; font-size: .58rem; letter-spacing: .11em; }
+  .wedding-timeline__day-header p { padding-inline: .5rem; font-size: .92rem; }
+  .wedding-timeline__list { gap: .35rem; }
+  .wedding-timeline__list::before { left: 1.5rem; }
+  .wedding-timeline__item { grid-template-columns: 3rem minmax(0, 1fr); }
+  .wedding-timeline__item .wedding-timeline__card { grid-column: 2; grid-row: 1; }
+  .wedding-timeline__item::before { left: 2.4rem; width: .36rem; }
+  .wedding-timeline__item::after { left: 2.72rem; border-top-width: 3px; border-bottom-width: 3px; border-left-width: 4px; }
+  .wedding-timeline__marker { width: 1.8rem; grid-column: 1; font-size: .58rem; }
+  .wedding-timeline__card { min-height: 7.2rem; padding: .85rem 1rem .95rem; }
+  .wedding-timeline__time { font-size: 1.9rem; }
+  .wedding-timeline__icon { width: 2.15rem; }
+  .wedding-timeline__card h4 { margin-top: .38rem; font-size: 1.33rem; }
+  .wedding-timeline__card p { font-size: .79rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wedding-timeline__card { transition: none; }
+}
+
+@keyframes card-entrance {
+  0% {
+    transform: translateY(50px) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Shared type and spacing rhythm for the invitation page. */
+.invitation-page {
+  --font-body: "Be Vietnam Pro", Arial, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --section-space: clamp(3rem, 6vw, 5rem);
+  --section-gutter: clamp(1rem, 4vw, 2.5rem);
+  display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
+  grid-template-rows: minmax(auto, 1fr) auto;
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+#root .invitation-page > .relative.z-10 > section:not(.hero-section) {
+  padding-block: var(--section-space) !important;
+  padding-inline: var(--section-gutter) !important;
+}
+
+#root .invitation-page > .relative.z-10 > section:not(.hero-section) h2:not(.sr-only) {
+  font-size: clamp(1.9rem, 4vw, 3rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: .01em;
+  text-wrap: balance;
+}
+
+#root .invitation-page > .relative.z-10 > section:not(.hero-section) p {
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.wish-live-avatar { font-size: .9rem; }
+
+@media (max-width: 640px) {
+  .wish-live-message { font-size: .8rem; }
+}
+
+@media (max-width: 360px) {
+  #root .invitation-page > .relative.z-10 > section:not(.hero-section) h2:not(.sr-only) {
+    font-size: 1.8rem !important;
+  }
+}

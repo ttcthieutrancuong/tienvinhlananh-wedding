@@ -1,0 +1,28 @@
+{
+  "name": "Thiệp Cưới Tiến Vinh & Lan Anh",
+  "short_name": "Thiệp cưới",
+  "description": "Lễ cưới của Tiến Vinh và Lan Anh - 03/11/2026",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EAE4CC",
+  "theme_color": "#D4AF37",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "vi",
+  "dir": "ltr",
+  "categories": ["lifestyle", "social"],
+  "icons": [
+    {
+      "src": "/icons/monogram-va.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/monogram-va.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
